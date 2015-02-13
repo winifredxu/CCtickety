@@ -1,1 +1,23 @@
 <h1 class="page_top">Show Ticket page</h1>
+<h3><%= @ticket.title %></h3>
+
+  <p><%= @ticket.body %></p>
+
+  <%= form_for @ticket, url: ticket_path(@ticket),
+   
+          html: { style: "display: inline-block" } do |f| %>
+    <%= @ticket.status ? "Resolved by #{@ticket.user.first_name}" : "" %>
+    <% status_msg = @ticket.status ? "Mark Un-Resolved" : "Mark Resolved" %>
+    <%= f.hidden_field :status, :value => (!@ticket.status) %>    
+    <%= f.submit status_msg, class: "btn btn-sm btn-primary" %>
+  <% end %>
+
+  <br>Task by: <%= @ticket.user.full_name %><br>
+  <%= link_to "Edit", edit_ticket_path(@ticket), 
+                      class: "btn btn-sm btn-info" %>
+  <%= link_to "Delete", ticket_path(@ticket), 
+                        method: :delete,  
+                        data: {confirm: "Delete ticket for sure?"}, 
+                        class: "btn btn-sm btn-danger" %>
+
+ 

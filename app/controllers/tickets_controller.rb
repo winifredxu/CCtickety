@@ -9,7 +9,9 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new
   end
   def create
-    @ticket = Ticket.new
+    @ticket = Ticket.new ticket_params
+    @ticket.user = current_user
+
     if @ticket.save
       redirect_to ticket_path(@ticket), notice: "Ticket created successfully."
     else
@@ -24,7 +26,7 @@ class TicketsController < ApplicationController
   end
   def update
     #find_ticket
-    if @ticket.update 
+    if @ticket.update ticket_params
       redirect_to ticket_path(@ticket), notice: "Ticket updated successfully."
     else
       render :edit
@@ -42,6 +44,6 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find(params[:id])
   end
   def ticket_params
-    params.require(:project).permit(:title, :body)
+    params.require(:ticket).permit(:title, :body)
   end
 end

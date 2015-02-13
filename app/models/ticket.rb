@@ -5,6 +5,13 @@ class Ticket < ActiveRecord::Base
 
   before_save :cap_title  
 
+  def resolved
+    Ticket.where('status = true')
+  end 
+  def unresolved
+    Ticket.where('status = false')
+  end
+
   private
   
   def cap_title

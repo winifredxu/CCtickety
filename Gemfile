@@ -40,7 +40,7 @@ gem 'bootstrap-sass' # this is to include using 'bootstrap' CSS
 gem 'rails_12factor' # for bootstrap to work while pushed to Heroku
 #gem 'autoprefixer'  # used for SASS for bootstrap
 gem 'devise'         # authentication module
-gem 'cancancan', '~> 1.10' # authorization Gem for Ruby on Rails
+gem 'cancancan'      # authorization Gem for Ruby on Rails
 
 #gem 'haml-rails'
 #gem 'slim-rails'
@@ -60,7 +60,8 @@ gem 'mini_magick'           #??
 
 gem 'fog'  # interface with S3, google, etc, all service providers
 
-group :development do 
+
+group :development do  #these are required in ~/.irbrc 
   gem "colorize"
   gem "interactive_editor"
   gem "hirb"
@@ -68,6 +69,9 @@ group :development do
   gem "letter_opener" #to do with email client/mailer(?)
 end
 
+group :test do
+  gem "simplecov", require: false  # only load upon usage
+end
 
 group :development, :test do
 #  gem "pry-rails"
@@ -75,7 +79,13 @@ group :development, :test do
   gem "quiet_assets"  #rails log does not show the assets (js, css) related entries
   gem 'faker'  #CodeCore added for homework purposes, generates a bunch of Fake information/data
 
+
+  gem "rspec-rails"  #Rspec for testing
+  gem 'capybara' #capybara for integration testing
+  gem 'launchy'   #also for capybara testing 
+  gem 'factory_girl_rails'  #this is for generate Rspec testing
   
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 

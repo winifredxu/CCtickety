@@ -1,0 +1,14 @@
+<li>
+  <h3><%= link_to t.title, ticket_path(t) %></h3>
+  <%= t.body %><br>
+
+  <%= form_for t, url: ticket_path(t), html: { style: "display: inline-block" } do |f| %>
+    <%= t.status ? "Resolved by #{t.user.first_name}" : "" %>
+    <% status_msg = t.status ? "Mark Un-Resolved" : "Mark Resolved" %>
+    <%= f.hidden_field :status, :value => (!t.status) %>    
+    <%= f.submit status_msg, class: "btn btn-sm btn-primary" %>
+  <% end %>
+
+  <br>Task by: <%= t.user.full_name %>
+  <hr>
+</li>
