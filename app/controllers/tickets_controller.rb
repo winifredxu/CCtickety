@@ -1,32 +1,47 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_ticket, only: [:show, :edit, :update, :destroy]
-  before_action :ticket_params
 
   def index
-
+    @entire_tickets = Ticket.all
   end
   def new
-
+    @ticket = Ticket.new
   end
   def create
+    @ticket = Ticket.new
+    if @ticket.save
+      redirect_to ticket_path(@ticket), notice: "Ticket created successfully."
+    else
+      render :new
+    end
   end
   def show
-
+    #find_ticket
   end
   def edit
+    #find_ticket
   end
   def update
+    #find_ticket
+    if @ticket.update 
+      redirect_to ticket_path(@ticket), notice: "Ticket updated successfully."
+    else
+      render :edit
+    end
   end
   def destroy
+    #find_ticket
+    @ticket.destroy
+    redirect_to tickets_path, notice: "Ticket deleted successfully!"
   end
 
   private
 
   def find_ticket
-
+    @ticket = Ticket.find(params[:id])
   end
   def ticket_params
-
+    params.require(:project).permit(:title, :body)
   end
 end
