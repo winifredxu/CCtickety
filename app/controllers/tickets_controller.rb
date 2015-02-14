@@ -4,6 +4,8 @@ class TicketsController < ApplicationController
 
   def index
     @entire_tickets = Ticket.all
+    @resolved = Ticket.resolved
+    @unresolved = Ticket.unresolved
   end
   def new
     @ticket = Ticket.new
@@ -26,12 +28,22 @@ class TicketsController < ApplicationController
   end
   def update
     #find_ticket
+
+#    render text:params
+    old_status = @ticket.status
+    new_status = ticket_params[:status] == "true"
+    if (old_status == false) && (new_status == true)
+    
+      @ticket.resolver = current_user
+    end
+
     if @ticket.update ticket_params
       redirect_to ticket_path(@ticket), notice: "Ticket updated successfully."
     else
       render :edit
     end
   end
+
   def destroy
     #find_ticket
     @ticket.destroy
@@ -44,6 +56,6 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find(params[:id])
   end
   def ticket_params
-    params.require(:ticket).permit(:title, :body)
+    params.require(:ticket).permit(:title, :body, :status)
   end
 end

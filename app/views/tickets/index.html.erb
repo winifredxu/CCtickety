@@ -6,8 +6,8 @@
 <% else %>
   <div class="col-md-6 tickets">
     <ul>
-<%# byebug %>
-      <% @entire_tickets.unresolved_tickets.each do |t| %>
+      <h3>Unresolved tickets:</h3>
+      <% @unresolved.each do |t| %>
         <%= render partial: "/tickets/tickets", locals: { t: t } %>      
       <% end %>
     </ul>
@@ -15,7 +15,8 @@
 
   <div class="col-md-6 tickets">
     <ul>
-      <% @entire_tickets.resolved_tickets.each do |t| %>
+      <h3>Resolved tickets:</h3>
+      <% @resolved.each do |t| %>
         <%= render partial: "/tickets/tickets", locals: { t: t } %>      
       <% end %>
     </ul>
